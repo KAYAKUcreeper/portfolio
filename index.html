@@ -7,30 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <header>
-        <nav>
-            <div class="logo">Portfolio</div>
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero">
-            <div class="container">
-                <h1>Hi, I'm <span class="highlight">Your Name</span></h1>
-                <p>Web Developer / Designer</p>
-                <a href="#projects" class="btn">View My Work</a>
+    <canvas id="sao-bg-canvas"></canvas>
+    <!-- SAO UI Wrapper -->
+    <div id="sao-ui-wrapper">
+        <button id="sao-start-btn" class="sao-btn">MENU</button>
+        
+        <div id="sao-main-menu" class="hidden">
+            <div class="sao-menu-container">
+                <div class="player-column">
+                    <div class="sao-icon player-icon">👤</div>
+                </div>
+                <div class="section-column">
+                    <button class="sao-section-btn" data-section="about">About</button>
+                    <button class="sao-section-btn" data-section="skills">Skills</button>
+                    <button class="sao-section-btn" data-section="projects">Projects</button>
+                    <button class="sao-section-btn" data-section="contact">Contact</button>
+                </div>
             </div>
-        </section>
+        </div>
 
+        <div id="sao-panel" class="hidden">
+            <div class="sao-panel-content">
+                <button id="sao-panel-close">×</button>
+                <div id="sao-panel-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="hidden-content">
         <!-- About Section -->
         <section id="about" class="about">
             <div class="container">
@@ -89,13 +93,6 @@
             </div>
         </section>
     </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Your Name. All rights reserved.</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
