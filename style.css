@@ -1,4 +1,173 @@
-/* Reset CSS */
+/* SAO UI Styles */
+#sao-ui-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#sao-start-btn {
+    pointer-events: auto;
+    width: 120px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s, background 0.2s;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+#sao-start-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+#sao-main-menu {
+    pointer-events: auto;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.sao-menu-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.player-column, .section-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.player-icon {
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.sao-section-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-align: left;
+    backdrop-filter: blur(3px);
+    transition: all 0.2s;
+    width: 200px;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+}
+
+.sao-section-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #fff;
+    transform: translateX(10px);
+    box-shadow: -5px 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Panel Styles */
+#sao-panel {
+    pointer-events: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    background: rgba(230, 230, 230, 0.95);
+    border: 2px solid #555;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border-radius: 4px;
+    padding: 2rem;
+    overflow-y: auto;
+    animation: panelPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sao-panel-content {
+    position: relative;
+    color: #333;
+}
+
+#sao-panel-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: #333;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes panelPop {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Base styles adjustments */
+body {
+    background: #000; /* Deep black background */
+    height: 100vh;
+    overflow: hidden; /* Disable scrolling */
+}
+
+#sao-bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind everything */
+}
+
+.hidden-content {
+    display: none;
+}
+
 * {
     margin: 0;
     padding: 0;
