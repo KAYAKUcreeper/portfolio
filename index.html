@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Your Name</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="sao-bg-canvas"></canvas>
+    
+    <!-- SAO Header -->
+    <header id="sao-header" class="hidden">
+        <nav>
+            <div class="sao-logo">PORTFOLIO</div>
+            <ul class="sao-nav-links">
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="skills.html">SKILLS</a></li>
+                <li><a href="projects.html">PROJECTS</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <!-- SAO UI Wrapper -->
     <div id="sao-ui-wrapper">
         <button id="sao-start-btn" class="sao-btn">MENU</button>
@@ -15,84 +30,19 @@
         <div id="sao-main-menu" class="hidden">
             <div class="sao-menu-container">
                 <div class="player-column">
-                    <div class="sao-icon player-icon">👤</div>
+                    <div class="sao-icon-container">
+                        <img id="player-avatar" src="" alt="" class="player-icon-img">
+                    </div>
                 </div>
                 <div class="section-column">
-                    <button class="sao-section-btn" data-section="about">About</button>
-                    <button class="sao-section-btn" data-section="skills">Skills</button>
-                    <button class="sao-section-btn" data-section="projects">Projects</button>
-                    <button class="sao-section-btn" data-section="contact">Contact</button>
+                    <a href="about.html" class="sao-section-btn" style="text-decoration:none;">About</a>
+                    <a href="skills.html" class="sao-section-btn" style="text-decoration:none;">Skills</a>
+                    <a href="projects.html" class="sao-section-btn" style="text-decoration:none;">Projects</a>
+                    <a href="contact.html" class="sao-section-btn" style="text-decoration:none;">Contact</a>
                 </div>
-            </div>
-        </div>
-
-        <div id="sao-panel" class="hidden">
-            <div class="sao-panel-content">
-                <button id="sao-panel-close">×</button>
-                <div id="sao-panel-body"></div>
             </div>
         </div>
     </div>
-
-    <main class="hidden-content">
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <p>ここに自己紹介文を記述します。どのような経緯でプログラミングを始めたか、何を目指しているかなどを書くと良いでしょう。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2>Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">HTML / CSS</div>
-                    <div class="skill-item">JavaScript</div>
-                    <div class="skill-item">React / Vue.js</div>
-                    <div class="skill-item">Node.js</div>
-                    <div class="skill-item">Git / GitHub</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <div class="container">
-                <h2>My Projects</h2>
-                <div class="project-grid">
-                    <!-- Project Card 1 -->
-                    <article class="project-card">
-                        <h3>Project Title 1</h3>
-                        <p>プロジェクトの概要を簡潔に説明します。</p>
-                        <a href="#" target="_blank">View Project</a>
-                    </article>
-                    <!-- Project Card 2 -->
-                    <article class="project-card">
-                        <h3>Project Title 2</h3>
-                        <p>プロジェクトの概要を簡潔に説明します。</p>
-                        <a href="#" target="_blank">View Project</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Get In Touch</h2>
-                <p>お気軽に連絡をください！</p>
-                <div class="contact-links">
-                    <a href="mailto:your-email@example.com">Email</a>
-                    <a href="https://github.com/your-username" target="_blank">GitHub</a>
-                    <a href="https://twitter.com/your-handle" target="_blank">Twitter</a>
-                </div>
-            </div>
-        </section>
-    </main>
 
     <script src="script.js"></script>
 </body>
