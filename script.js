@@ -7,7 +7,10 @@ let height = canvas.height = window.innerHeight;
 
 const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const fontSize = 16;
-let introState = 'FLOWING'; // FLOWING, BLACKOUT, NAME_REVEAL
+// introState can be overridden by subpages to skip intro
+if (typeof introState === 'undefined') {
+    var introState = 'FLOWING'; // FLOWING, BLACKOUT, NAME_REVEAL
+}
 let introTimer = 0;
 
 // Streams for horizontal flow with randomization
@@ -73,17 +76,28 @@ function drawIntro() {
             if (leftStreams[i] > width) leftStreams[i] = 0;
         }
 
-        // Show Name
-        ctx.fillStyle = '#FF8C00';
-        ctx.font = 'bold 50px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#FF8C00';
-        ctx.fillText('Your Name', width / 2, height / 2);
-        ctx.shadowBlur = 0;
+        // Only show name and start button on index page
+        if (document.getElementById('sao-start-btn')) {
+            // Show Name (Elevated & Smaller)
+            ctx.fillStyle = '#fffbe0'; // Yellowish-white
+            ctx.font = '40px "Share Tech Mono", monospace'; // Digital font
+            ctx.textAlign = 'center';
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#ffaa00'; // Warm orange glow
+            ctx.fillText('Your Name', width / 2, height / 2 - 30);
 
-        // Show start button after reveal
-        document.getElementById('sao-start-btn').classList.remove('hidden');
+            // Show Subtitle (Cybersecurity Student & Smaller)
+            ctx.font = '18px "Share Tech Mono", monospace';
+            ctx.shadowBlur = 10;
+            ctx.fillText('cybersecurity student', width / 2, height / 2 + 15);
+            ctx.shadowBlur = 0;
+
+            document.getElementById('sao-start-btn').classList.remove('hidden');
+        }
+        
+        if (document.getElementById('sao-header')) {
+            document.getElementById('sao-header').classList.remove('hidden');
+        }
     }
 }
 
@@ -92,8 +106,10 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Ensure button starts hidden for intro
-document.getElementById('sao-start-btn').classList.add('hidden');
+// Initial hide for index elements
+if (document.getElementById('sao-start-btn')) {
+    document.getElementById('sao-start-btn').classList.add('hidden');
+}
 
 animate();
 
@@ -102,69 +118,30 @@ window.addEventListener('resize', () => {
     height = canvas.height = window.innerHeight;
 });
 
-// SAO Menu Logic
+// SAO UI Elements
 const saoStartBtn = document.getElementById('sao-start-btn');
 const saoMainMenu = document.getElementById('sao-main-menu');
-const saoPanel = document.getElementById('sao-panel');
-const saoPanelBody = document.getElementById('sao-panel-body');
-const saoPanelClose = document.getElementById('sao-panel-close');
-const saoSectionBtns = document.querySelectorAll('.sao-section-btn');
 
-saoStartBtn.addEventListener('click', () => {
-    saoMainMenu.classList.remove('hidden');
-    saoStartBtn.classList.add('hidden');
-});
+if (saoStartBtn) {
+    saoStartBtn.addEventListener('click', () => {
+        saoMainMenu.classList.remove('hidden');
+        saoStartBtn.classList.add('hidden');
+        canvas.classList.add('blur-bg'); // Blur the background (rain and names)
+    });
 
-saoSectionBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const sectionId = btn.getAttribute('data-section');
-        const sectionContent = document.getElementById(sectionId);
+if (saoMainMenu) {
+    saoMainMenu.addEventListener('click', (e) => {
+        // Close if clicking the backdrop (#sao-main-menu) OR the container (.sao-menu-container)
+        // But NOT if clicking inside the columns (buttons or icon)
+        const isBackdrop = e.target === saoMainMenu;
+        const isContainer = e.target.classList.contains('sao-menu-container');
         
-        if (sectionContent) {
-            // Clone content to show in panel
-            saoPanelBody.innerHTML = sectionContent.innerHTML;
+        if (isBackdrop || isContainer) {
             saoMainMenu.classList.add('hidden');
-            saoPanel.classList.remove('hidden');
+            saoStartBtn.classList.remove('hidden');
+            canvas.classList.remove('blur-bg'); // Remove blur
         }
     });
-});
+}
 
-saoPanelClose.addEventListener('click', () => {
-    saoPanel.classList.add('hidden');
-    saoStartBtn.classList.remove('hidden');
-});
-
-// Close menu on background click
-saoMainMenu.addEventListener('click', (e) => {
-    if (e.target === saoMainMenu) {
-        saoMainMenu.classList.add('hidden');
-        saoStartBtn.classList.remove('hidden');
-    }
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Basic reveal animation on scroll (optional)
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const triggerBottom = window.innerHeight / 5 * 4;
-
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-
-        if(sectionTop < triggerBottom) {
-            section.classList.add('show');
-        } else {
-            section.classList.remove('show');
-        }
-    });
-});
+}

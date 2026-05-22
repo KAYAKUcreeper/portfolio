@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Your Name</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-content {
+            padding: 100px 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #fffbe0;
+            font-family: 'Share Tech Mono', monospace;
+            background: rgba(0, 0, 0, 0.7);
+            min-height: 100vh;
+            border-left: 1px solid rgba(255, 170, 0, 0.3);
+            border-right: 1px solid rgba(255, 170, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        h2 { border-bottom: 2px solid #ffaa00; margin-bottom: 2rem; text-shadow: 0 0 10px #ffaa00; }
+        .contact-links a { display: block; margin: 1rem 0; color: #fffbe0; text-decoration: none; font-size: 1.2rem; }
+        .contact-links a:hover { color: #ffaa00; text-shadow: 0 0 10px #ffaa00; }
+    </style>
+</head>
+<body>
+    <canvas id="sao-bg-canvas"></canvas>
+    
+    <header id="sao-header">
+        <nav>
+            <div class="sao-logo"><a href="index.html" style="text-decoration:none; color:inherit;">PORTFOLIO</a></div>
+            <ul class="sao-nav-links">
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="skills.html">SKILLS</a></li>
+                <li><a href="projects.html">PROJECTS</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-content">
+        <h2>Get In Touch</h2>
+        <div class="contact-links">
+            <a href="mailto:your-email@example.com">Email: your-email@example.com</a>
+            <a href="https://github.com/your-username" target="_blank">GitHub: your-username</a>
+            <a href="https://twitter.com/your-handle" target="_blank">Twitter: @your-handle</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        introState = 'NAME_REVEAL';
+        document.getElementById('sao-header').classList.remove('hidden');
+    </script>
+</body>
+</html>
