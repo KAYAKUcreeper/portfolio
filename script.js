@@ -60,13 +60,13 @@ function drawIntro() {
         }
         if (document.getElementById('sao-start-btn')) {
             ctx.fillStyle = '#fffbe0';
-            ctx.font = '40px "Share Tech Mono", monospace';
+            ctx.font = '45px "DotGothic16", monospace'; // Pixel/Dot font
             ctx.textAlign = 'center';
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 8;
             ctx.shadowColor = '#ffaa00';
-            ctx.fillText('Your Name', width / 2, height / 2 - 30);
-            ctx.font = '18px "Share Tech Mono", monospace';
-            ctx.shadowBlur = 10;
+            ctx.fillText('かやく / kayaku', width / 2, height / 2 - 30);
+            ctx.font = '22px "DotGothic16", monospace'; // Pixel/Dot font
+            ctx.shadowBlur = 5;
             ctx.fillText('cybersecurity student', width / 2, height / 2 + 15);
             ctx.shadowBlur = 0;
             document.getElementById('sao-start-btn').classList.remove('hidden');
@@ -89,7 +89,8 @@ const subMenus = document.querySelectorAll('.sub-menu');
 if (saoStartBtn) {
     saoStartBtn.addEventListener('click', () => {
         saoMainMenu.classList.remove('hidden');
-        saoStartBtn.classList.add('hidden');
+        saoStartBtn.classList.add('blur-bg'); // Blur the MENU button
+        saoStartBtn.style.pointerEvents = 'none'; // Prevent interaction while menu is open
         canvas.classList.add('blur-bg');
     });
 }
@@ -113,11 +114,12 @@ if (saoMainMenu) {
     saoMainMenu.addEventListener('click', (e) => {
         const isBackdrop = e.target === saoMainMenu;
         const isContainer = e.target.classList.contains('sao-menu-container');
-        const isWrapper = e.target.classList.contains('section-column-wrapper');
+        const isRowContainer = e.target.classList.contains('menu-rows-container');
         
-        if (isBackdrop || isContainer || isWrapper) {
+        if (isBackdrop || isContainer || isRowContainer) {
             saoMainMenu.classList.add('hidden');
-            saoStartBtn.classList.remove('hidden');
+            saoStartBtn.classList.remove('blur-bg'); // Unblur the MENU button
+            saoStartBtn.style.pointerEvents = 'auto'; // Re-enable interaction
             canvas.classList.remove('blur-bg');
         }
     });
