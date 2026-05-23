@@ -62,7 +62,7 @@
     width: 100%;
 }
 
-/* SAO UI Styles */
+/* SAO UI Layout */
 #sao-ui-wrapper {
     position: fixed;
     top: 0;
@@ -103,10 +103,62 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-.blur-bg {
-    filter: blur(4px) brightness(0.7);
+.sao-cat-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
 }
 
+.sao-cat-btn:hover, .sao-cat-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* High-Cascade Mechanical Animations */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-200px); /* Dramatic fall from much higher */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sharp deceleration with a longer travel feel */
+#sao-main-menu:not(.hidden) .sao-cat-btn,
+#sao-main-menu:not(.hidden) .sao-section-btn,
+#sao-main-menu:not(.hidden) .player-column.persistent {
+    animation-name: slideDown;
+    animation-duration: 0.5s; /* Slightly longer to accommodate the distance */
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: forwards;
+}
+
+/* Category buttons cascading (rhythmic stagger) */
+#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(3) { animation-delay: 0.05s; }
+#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(2) { animation-delay: 0.12s; }
+#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(1) { animation-delay: 0.19s; }
+
+/* Sub-menu section buttons - flowing cascade from bottom to top */
+.sub-menu.active .sao-section-btn:nth-last-child(1) { animation-delay: 0.05s; }
+.sub-menu.active .sao-section-btn:nth-last-child(2) { animation-delay: 0.12s; }
+.sub-menu.active .sao-section-btn:nth-last-child(3) { animation-delay: 0.19s; }
+
+/* Main Menu Backdrop & Container */
 #sao-main-menu {
     pointer-events: auto;
     position: fixed;
@@ -124,17 +176,60 @@
 
 .sao-menu-container {
     display: flex;
-    gap: 100px;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
+    gap: 40px;
+    align-items: flex-start;
     justify-content: center;
 }
 
-.player-column {
+/* Persistent Player Column (Far Left) */
+.player-column.persistent {
     display: flex;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+}
+
+.category-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Sub-menu styling (Right Side) */
+.section-column-wrapper {
+    width: 250px;
+}
+
+.sub-menu {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sub-menu.active {
+    display: flex;
+}
+
+.sao-section-btn {
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-align: left;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s;
+    width: 100%;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    text-decoration: none;
+}
+
+.sao-section-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #fff;
+    box-shadow: -5px 0 15px rgba(255, 255, 255, 0.4);
 }
 
 .sao-icon-container {
@@ -148,7 +243,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px); /* Blurred menu element */
+    backdrop-filter: blur(5px);
 }
 
 .player-icon-img {
@@ -157,69 +252,12 @@
     object-fit: cover;
 }
 
-.section-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.sao-section-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #fff;
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    text-align: left;
-    backdrop-filter: blur(5px); /* Blurred menu element */
-    transition: all 0.2s;
-    width: 200px;
-    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
-    text-decoration: none;
-}
-
-.sao-section-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: #fff;
-    box-shadow: -5px 0 15px rgba(255, 255, 255, 0.4);
-}
-
-/* Animations */
+/* Base Styles */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.player-column, .sao-section-btn {
-    opacity: 0;
-}
-
-#sao-main-menu:not(.hidden) .player-column {
-    animation: slideDown 0.25s ease-out forwards;
-    animation-delay: 0.3s;
-}
-
-#sao-main-menu:not(.hidden) .sao-section-btn {
-    animation: slideDown 0.25s ease-out forwards;
-}
-
-#sao-main-menu:not(.hidden) .sao-section-btn:nth-child(4) { animation-delay: 0.05s; }
-#sao-main-menu:not(.hidden) .sao-section-btn:nth-child(3) { animation-delay: 0.1s; }
-#sao-main-menu:not(.hidden) .sao-section-btn:nth-child(2) { animation-delay: 0.15s; }
-#sao-main-menu:not(.hidden) .sao-section-btn:nth-child(1) { animation-delay: 0.2s; }
-
-/* Base Reset */
 * {
     margin: 0;
     padding: 0;
@@ -243,4 +281,8 @@ body {
     height: 100%;
     z-index: -1;
     transition: filter 0.3s ease;
+}
+
+.blur-bg {
+    filter: blur(4px) brightness(0.7);
 }
