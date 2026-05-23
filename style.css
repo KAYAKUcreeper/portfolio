@@ -103,34 +103,11 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-.sao-cat-btn {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-}
-
-.sao-cat-btn:hover, .sao-cat-btn.active {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: #fff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-}
-
-/* High-Cascade Mechanical Animations */
+/* Mechanical SAO Animations */
 @keyframes slideDown {
     0% {
         opacity: 0;
-        transform: translateY(-200px); /* Dramatic fall from much higher */
+        transform: translateY(-200px);
     }
     100% {
         opacity: 1;
@@ -138,27 +115,19 @@
     }
 }
 
-/* Sharp deceleration with a longer travel feel */
-#sao-main-menu:not(.hidden) .sao-cat-btn,
-#sao-main-menu:not(.hidden) .sao-section-btn,
-#sao-main-menu:not(.hidden) .player-column.persistent {
-    animation-name: slideDown;
-    animation-duration: 0.5s; /* Slightly longer to accommodate the distance */
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    animation-fill-mode: forwards;
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+        transform-origin: left;
+    }
 }
 
-/* Category buttons cascading (rhythmic stagger) */
-#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(3) { animation-delay: 0.05s; }
-#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(2) { animation-delay: 0.12s; }
-#sao-main-menu:not(.hidden) .sao-cat-btn:nth-child(1) { animation-delay: 0.19s; }
-
-/* Sub-menu section buttons - flowing cascade from bottom to top */
-.sub-menu.active .sao-section-btn:nth-last-child(1) { animation-delay: 0.05s; }
-.sub-menu.active .sao-section-btn:nth-last-child(2) { animation-delay: 0.12s; }
-.sub-menu.active .sao-section-btn:nth-last-child(3) { animation-delay: 0.19s; }
-
-/* Main Menu Backdrop & Container */
 #sao-main-menu {
     pointer-events: auto;
     position: fixed;
@@ -187,23 +156,63 @@
     flex-direction: column;
     align-items: center;
     opacity: 0;
+    animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.1s;
 }
 
-.category-column {
+/* Rows Container for Category Icons */
+.menu-rows-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; /* Vertical gap between marks */
 }
 
-/* Sub-menu styling (Right Side) */
-.section-column-wrapper {
-    width: 250px;
+.menu-row {
+    position: relative; /* Anchor for absolute sub-menu */
+    width: 60px; /* Match icon size */
+    height: 60px;
 }
 
+.sao-cat-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered entry for icons */
+.menu-row:nth-child(3) .sao-cat-btn { animation-delay: 0.05s; }
+.menu-row:nth-child(2) .sao-cat-btn { animation-delay: 0.12s; }
+.menu-row:nth-child(1) .sao-cat-btn { animation-delay: 0.19s; }
+
+.sao-cat-btn:hover, .sao-cat-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Sub-menu styling (Centered and Overlapping) */
 .sub-menu {
     display: none;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
+    width: 180px;
+    position: absolute;
+    left: 75px; /* Right of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
 }
 
 .sub-menu.active {
@@ -215,8 +224,8 @@
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
-    padding: 12px 30px;
-    font-size: 1.1rem;
+    padding: 10px 20px;
+    font-size: 1rem;
     cursor: pointer;
     text-align: left;
     backdrop-filter: blur(5px);
@@ -224,7 +233,13 @@
     width: 100%;
     clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
     text-decoration: none;
+    animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Sequential delay for buttons */
+.sub-menu.active .sao-section-btn:nth-last-child(1) { animation-delay: 0.05s; }
+.sub-menu.active .sao-section-btn:nth-last-child(2) { animation-delay: 0.12s; }
+.sub-menu.active .sao-section-btn:nth-last-child(3) { animation-delay: 0.19s; }
 
 .sao-section-btn:hover {
     background: rgba(255, 255, 255, 0.3);

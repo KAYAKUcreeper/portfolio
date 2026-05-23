@@ -36,24 +36,31 @@
                     </div>
                 </div>
 
-                <!-- Tier 1: Category Icons -->
-                <div class="category-column">
-                    <button class="sao-cat-btn active" data-target="cat-player">👤</button>
-                    <button class="sao-cat-btn" data-target="cat-swords">⚔️</button>
-                    <button class="sao-cat-btn" data-target="cat-chat">💬</button>
-                </div>
-
-                <!-- Tier 2: Section Buttons (Contextual) -->
-                <div class="section-column-wrapper">
-                    <div id="cat-player" class="section-column sub-menu active">
-                        <a href="about.html" class="sao-section-btn">About</a>
+                <!-- Main Menu Category Area -->
+                <div class="menu-rows-container">
+                    <!-- Row 1: Person -->
+                    <div class="menu-row">
+                        <button class="sao-cat-btn active" data-target="cat-player">👤</button>
+                        <div id="cat-player" class="sub-menu active">
+                            <a href="about.html" class="sao-section-btn">About</a>
+                        </div>
                     </div>
-                    <div id="cat-swords" class="section-column sub-menu">
-                        <a href="skills.html" class="sao-section-btn">Skills</a>
-                        <a href="projects.html" class="sao-section-btn">Projects</a>
+                    
+                    <!-- Row 2: Swords -->
+                    <div class="menu-row">
+                        <button class="sao-cat-btn" data-target="cat-swords">⚔️</button>
+                        <div id="cat-swords" class="sub-menu">
+                            <a href="skills.html" class="sao-section-btn">Skills</a>
+                            <a href="projects.html" class="sao-section-btn">Projects</a>
+                        </div>
                     </div>
-                    <div id="cat-chat" class="section-column sub-menu">
-                        <a href="contact.html" class="sao-section-btn">Contact</a>
+                    
+                    <!-- Row 3: Chat -->
+                    <div class="menu-row">
+                        <button class="sao-cat-btn" data-target="cat-chat">💬</button>
+                        <div id="cat-chat" class="sub-menu">
+                            <a href="contact.html" class="sao-section-btn">Contact</a>
+                        </div>
                     </div>
                 </div>
             </div>
