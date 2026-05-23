@@ -29,16 +29,32 @@
         
         <div id="sao-main-menu" class="hidden">
             <div class="sao-menu-container">
-                <div class="player-column">
+                <!-- Persistent Player Icon (Far Left) -->
+                <div class="player-column persistent">
                     <div class="sao-icon-container">
                         <img id="player-avatar" src="" alt="" class="player-icon-img">
                     </div>
                 </div>
-                <div class="section-column">
-                    <a href="about.html" class="sao-section-btn" style="text-decoration:none;">About</a>
-                    <a href="skills.html" class="sao-section-btn" style="text-decoration:none;">Skills</a>
-                    <a href="projects.html" class="sao-section-btn" style="text-decoration:none;">Projects</a>
-                    <a href="contact.html" class="sao-section-btn" style="text-decoration:none;">Contact</a>
+
+                <!-- Tier 1: Category Icons -->
+                <div class="category-column">
+                    <button class="sao-cat-btn active" data-target="cat-player">👤</button>
+                    <button class="sao-cat-btn" data-target="cat-swords">⚔️</button>
+                    <button class="sao-cat-btn" data-target="cat-chat">💬</button>
+                </div>
+
+                <!-- Tier 2: Section Buttons (Contextual) -->
+                <div class="section-column-wrapper">
+                    <div id="cat-player" class="section-column sub-menu active">
+                        <a href="about.html" class="sao-section-btn">About</a>
+                    </div>
+                    <div id="cat-swords" class="section-column sub-menu">
+                        <a href="skills.html" class="sao-section-btn">Skills</a>
+                        <a href="projects.html" class="sao-section-btn">Projects</a>
+                    </div>
+                    <div id="cat-chat" class="section-column sub-menu">
+                        <a href="contact.html" class="sao-section-btn">Contact</a>
+                    </div>
                 </div>
             </div>
         </div>
