@@ -6,9 +6,9 @@ let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight;
 
 const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const fontSize = 16;
+const fontSize = 18; // Balanced size
 if (typeof introState === 'undefined') {
-    var introState = 'FLOWING'; // FLOWING, BLACKOUT, NAME_REVEAL
+    var introState = 'FLOWING'; 
 }
 let introTimer = 0;
 
@@ -16,9 +16,15 @@ const leftStreams = [];
 const rightStreams = [];
 const streamCount = Math.floor(height / fontSize);
 
+// Store current characters to allow slower updates
+const leftChars = [];
+const rightChars = [];
+
 for (let i = 0; i < streamCount; i++) {
     leftStreams[i] = -Math.random() * width;
     rightStreams[i] = width + Math.random() * width;
+    leftChars[i] = characters.charAt(Math.floor(Math.random() * characters.length));
+    rightChars[i] = characters.charAt(Math.floor(Math.random() * characters.length));
 }
 
 function drawIntro() {
@@ -29,12 +35,18 @@ function drawIntro() {
         ctx.font = fontSize + 'px monospace';
         let allReachedCenter = true;
         for (let i = 0; i < streamCount; i++) {
-            const textL = characters.charAt(Math.floor(Math.random() * characters.length));
-            ctx.fillText(textL, leftStreams[i], i * fontSize);
-            leftStreams[i] += fontSize * 2;
-            const textR = characters.charAt(Math.floor(Math.random() * characters.length));
-            ctx.fillText(textR, rightStreams[i], i * fontSize);
-            rightStreams[i] -= fontSize * 2;
+            // Further reduced character update probability (approx 1 in 10 frames)
+            if (Math.random() > 1) {
+                leftChars[i] = characters.charAt(Math.floor(Math.random() * characters.length));
+                rightChars[i] = characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            ctx.fillText(leftChars[i], leftStreams[i], i * fontSize);
+            leftStreams[i] += fontSize * 3; // Slightly faster flow (from 2)
+
+            ctx.fillText(rightChars[i], rightStreams[i], i * fontSize);
+            rightStreams[i] -= fontSize * 3; // Slightly faster flow
+
             if (leftStreams[i] < width / 2 || rightStreams[i] > width / 2) allReachedCenter = false;
         }
         if (allReachedCenter) introTimer++;
@@ -53,8 +65,10 @@ function drawIntro() {
         ctx.fillStyle = 'rgba(255, 140, 0, 0.3)';
         ctx.font = fontSize + 'px monospace';
         for (let i = 0; i < streamCount; i++) {
-            const text = characters.charAt(Math.floor(Math.random() * characters.length));
-            ctx.fillText(text, leftStreams[i], i * fontSize);
+            if (Math.random() > 0.6) {
+                leftChars[i] = characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            ctx.fillText(leftChars[i], leftStreams[i], i * fontSize);
             leftStreams[i] += 5;
             if (leftStreams[i] > width) leftStreams[i] = 0;
         }
@@ -75,7 +89,10 @@ function drawIntro() {
     }
 }
 
-function animate() { drawIntro(); requestAnimationFrame(animate); }
+function animate() { 
+    drawIntro(); 
+    requestAnimationFrame(animate); 
+}
 if (document.getElementById('sao-start-btn')) document.getElementById('sao-start-btn').classList.add('hidden');
 animate();
 window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
