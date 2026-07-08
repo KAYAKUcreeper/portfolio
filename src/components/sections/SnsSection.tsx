@@ -2,7 +2,7 @@ import { IconLink } from '../ui/IconLink'
 import { GithubLogo, XLogo, ZennLogo } from './brand-icons'
 
 const LINKS = [
-  { label: 'Zenn', href: 'https://zenn.dev/YOUR_USERNAME', icon: <ZennLogo /> },
+  { label: 'Zenn', href: 'https://zenn.dev/kayakucreeper', icon: <ZennLogo /> },
   { label: 'X (Twitter)', href: 'https://x.com/YOUR_USERNAME', icon: <XLogo /> },
   { label: 'GitHub', href: 'https://github.com/YOUR_USERNAME', icon: <GithubLogo /> },
 ]

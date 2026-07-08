@@ -1,0 +1,14 @@
+[
+  {
+    "title": "プレースホルダー：記事タイトル例その1",
+    "url": "https://zenn.dev/kayakucreeper",
+    "publishedAt": "2026-06-20T00:00:00.000Z",
+    "excerpt": "プレースホルダー：本文の抜粋がここに表示されます。npm run dev または npm run build を実行すると scripts/fetch-zenn-posts.mjs が Zenn の実際の記事に置き換えます。"
+  },
+  {
+    "title": "プレースホルダー：記事タイトル例その2",
+    "url": "https://zenn.dev/kayakucreeper",
+    "publishedAt": "2026-05-05T00:00:00.000Z",
+    "excerpt": "プレースホルダー：これはダミーデータです。実際にZennへ記事を投稿すると、次回ビルド時に自動で一覧に反映されます。"
+  }
+]
