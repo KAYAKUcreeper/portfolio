@@ -7,7 +7,6 @@ import { useAincradTexture } from './useAincradTexture'
 interface LayerConfig {
   depth: number
   parallaxFactor: number
-  band: { offset: number; repeat: number }
   idleAmplitude: number
   idleFreq: number
   idlePhase: number
@@ -15,14 +14,15 @@ interface LayerConfig {
   overscan: number
 }
 
-// Three vertical bands cropped from the single Aincrad.png, placed at
-// different Z depths with different parallax speeds — a pseudo-3D
+// Each layer shows the FULL Aincrad.png (never cropped), placed at a
+// different Z depth with a different parallax speed — a pseudo-3D
 // approximation of depth from one flat image (see plan for rationale).
+// Cropping to a vertical band here would stretch a slice of the image
+// to fill the whole plane, which is what caused the "zoomed in" look.
 const LAYERS: LayerConfig[] = [
   {
     depth: -6,
     parallaxFactor: 0.15,
-    band: { offset: 0.35, repeat: 0.65 }, // sky + floating castle (top of image)
     idleAmplitude: 0.03,
     idleFreq: 0.05,
     idlePhase: 0,
@@ -32,7 +32,6 @@ const LAYERS: LayerConfig[] = [
   {
     depth: -3,
     parallaxFactor: 0.35,
-    band: { offset: 0.25, repeat: 0.5 }, // clouds / mountains (midground)
     idleAmplitude: 0.05,
     idleFreq: 0.08,
     idlePhase: 2,
@@ -42,7 +41,6 @@ const LAYERS: LayerConfig[] = [
   {
     depth: 0,
     parallaxFactor: 0.7,
-    band: { offset: 0, repeat: 0.35 }, // grass + crossed swords (foreground)
     idleAmplitude: 0.08,
     idleFreq: 0.11,
     idlePhase: 4,
@@ -84,8 +82,6 @@ function ParallaxLayer({
       const layerTexture = sourceTexture.clone()
       layerTexture.wrapS = THREE.ClampToEdgeWrapping
       layerTexture.wrapT = THREE.ClampToEdgeWrapping
-      layerTexture.repeat.set(1, config.band.repeat)
-      layerTexture.offset.set(0, config.band.offset)
       layerTexture.needsUpdate = true
       return new THREE.MeshBasicMaterial({ map: layerTexture })
     }
@@ -98,8 +94,22 @@ function ParallaxLayer({
 
   const { width, height } = useMemo(() => {
     const size = viewport.getCurrentViewport(camera, [0, 0, config.depth])
+    const image = sourceTexture?.image as { width?: number; height?: number } | undefined
+
+    // "Cover" fit: scale the plane to the image's own aspect ratio so the
+    // texture is never stretched, then crop via the camera edges instead.
+    if (image?.width && image?.height) {
+      const imageAspect = image.width / image.height
+      const viewportAspect = size.width / size.height
+      const [coverWidth, coverHeight] =
+        imageAspect > viewportAspect
+          ? [size.height * imageAspect, size.height]
+          : [size.width, size.width / imageAspect]
+      return { width: coverWidth * config.overscan, height: coverHeight * config.overscan }
+    }
+
     return { width: size.width * config.overscan, height: size.height * config.overscan }
-  }, [viewport, camera, config])
+  }, [viewport, camera, config, sourceTexture])
 
   useFrame((state) => {
     const target = mouseParallaxStore.getState()
