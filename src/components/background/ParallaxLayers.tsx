@@ -27,7 +27,7 @@ const LAYERS: LayerConfig[] = [
     idleFreq: 0.05,
     idlePhase: 0,
     fallbackColors: ['#0a1a2e', '#123049'],
-    overscan: 1.15,
+    overscan: 1.08,
   },
   {
     depth: -3,
@@ -36,7 +36,7 @@ const LAYERS: LayerConfig[] = [
     idleFreq: 0.08,
     idlePhase: 2,
     fallbackColors: ['#123049', '#1aa8c9'],
-    overscan: 1.2,
+    overscan: 1.16,
   },
   {
     depth: 0,
@@ -45,7 +45,7 @@ const LAYERS: LayerConfig[] = [
     idleFreq: 0.11,
     idlePhase: 4,
     fallbackColors: ['#123049', '#050b14'],
-    overscan: 1.3,
+    overscan: 1.28,
   },
 ]
 
