@@ -30,16 +30,22 @@ function App() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="absolute inset-x-0 top-20 flex flex-col items-center px-4 text-center sm:top-28"
+            className="absolute left-1/2 top-20 flex w-fit -translate-x-1/2 flex-col items-center rounded-3xl bg-sao-navy/35 px-8 py-6 text-center backdrop-blur-sm sm:top-28"
           >
-            <p className="font-display text-xs tracking-[0.4em] text-sao-cyan-dim">
+            <p className="font-display text-xs tracking-[0.4em] text-sao-cyan-dim [text-shadow:0_2px_6px_rgba(5,11,20,0.9)]">
               PORTFOLIO OF
             </p>
-            <h1 className="font-display mt-2 text-4xl tracking-[0.15em] text-sao-cyan drop-shadow-[0_0_18px_rgba(55,244,255,0.6)] sm:text-6xl">
+            <h1
+              className="font-display mt-2 text-4xl tracking-[0.15em] text-sao-cyan sm:text-6xl"
+              style={{
+                filter:
+                  'drop-shadow(0 0 16px rgba(55,244,255,0.55)) drop-shadow(0 3px 8px rgba(5,11,20,0.9))',
+              }}
+            >
               KAYAKU
             </h1>
             <div className="mt-4 h-px w-24 bg-sao-cyan/40" />
-            <p className="mt-4 text-sm text-sao-white/70">
+            <p className="mt-4 text-sm text-sao-white [text-shadow:0_2px_6px_rgba(5,11,20,0.9)]">
               プレースホルダー：ここに一言紹介文を入れてください
             </p>
           </motion.div>
