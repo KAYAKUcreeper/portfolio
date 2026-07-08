@@ -25,7 +25,25 @@ function App() {
       <CircularMenu />
       <SectionOverlay />
       <main className="relative w-full">
-        <section className="relative h-screen w-full">
+        <section id="home" className="relative h-screen w-full">
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+            className="absolute inset-x-0 top-20 flex flex-col items-center px-4 text-center sm:top-28"
+          >
+            <p className="font-display text-xs tracking-[0.4em] text-sao-cyan-dim">
+              PORTFOLIO OF
+            </p>
+            <h1 className="font-display mt-2 text-4xl tracking-[0.15em] text-sao-cyan drop-shadow-[0_0_18px_rgba(55,244,255,0.6)] sm:text-6xl">
+              KAYAKU
+            </h1>
+            <div className="mt-4 h-px w-24 bg-sao-cyan/40" />
+            <p className="mt-4 text-sm text-sao-white/70">
+              プレースホルダー：ここに一言紹介文を入れてください
+            </p>
+          </motion.div>
+
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}

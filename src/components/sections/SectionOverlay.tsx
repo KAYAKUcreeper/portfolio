@@ -3,13 +3,11 @@ import { X } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 import { SECTIONS } from '../../types/section'
 import { GlassPanel } from '../ui/GlassPanel'
-import { HomeSection } from './HomeSection'
 import { ProfileSection } from './ProfileSection'
 import { BlogSection } from './BlogSection'
 import { SnsSection } from './SnsSection'
 
 const SECTION_COMPONENTS = {
-  home: HomeSection,
   profile: ProfileSection,
   blog: BlogSection,
   sns: SnsSection,

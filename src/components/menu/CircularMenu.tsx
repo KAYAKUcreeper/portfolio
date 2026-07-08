@@ -32,6 +32,7 @@ function angleForIndex(index: number, count: number) {
 export function CircularMenu() {
   const menuOpen = useAppStore((s) => s.menuOpen)
   const toggleMenu = useAppStore((s) => s.toggleMenu)
+  const closeMenu = useAppStore((s) => s.closeMenu)
   const openSection = useAppStore((s) => s.openSection)
 
   return (
@@ -60,7 +61,14 @@ export function CircularMenu() {
                   <MenuButton
                     label={item.label}
                     icon={item.icon}
-                    onClick={() => openSection(item.id)}
+                    onClick={() => {
+                      if (item.id === 'home') {
+                        closeMenu()
+                        document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })
+                      } else {
+                        openSection(item.id)
+                      }
+                    }}
                   />
                 </motion.div>
               )
