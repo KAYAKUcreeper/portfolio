@@ -25,10 +25,9 @@ body {
   background: var(--color-sao-navy);
   color: var(--color-sao-white);
   font-family: var(--font-body);
-  overflow: hidden;
 }
 
 #root {
-  width: 100vw;
-  height: 100svh;
+  width: 100%;
+  min-height: 100svh;
 }
