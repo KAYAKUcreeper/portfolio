@@ -30,7 +30,11 @@ function App() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="absolute left-1/2 top-20 flex w-fit -translate-x-1/2 flex-col items-center rounded-3xl bg-sao-navy/35 px-8 py-6 text-center backdrop-blur-sm sm:top-28"
+            className="absolute left-1/2 top-20 flex w-fit -translate-x-1/2 flex-col items-center px-10 py-8 text-center sm:top-28"
+            style={{
+              background:
+                'radial-gradient(ellipse 70% 65% at center, rgba(5,11,20,0.45) 0%, rgba(5,11,20,0.2) 50%, transparent 75%)',
+            }}
           >
             <p className="font-display text-xs tracking-[0.4em] text-sao-cyan-dim [text-shadow:0_2px_6px_rgba(5,11,20,0.9)]">
               PORTFOLIO OF
