@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { SwordFlyIn } from './SwordFlyIn'
+import { LightBarFlyIn } from './LightBarFlyIn'
 import { markBootSeen } from '../../hooks/useSessionBootSkip'
 
 type Phase = 'idle' | 'flying' | 'settled' | 'transitioning'
@@ -81,7 +81,7 @@ export function BootScreen({ onDone }: BootScreenProps) {
         )}
       </AnimatePresence>
 
-      {phase !== 'idle' && <SwordFlyIn onArrive={() => setPhase('settled')} />}
+      {phase !== 'idle' && <LightBarFlyIn onArrive={() => setPhase('settled')} />}
     </motion.div>
   )
 }
