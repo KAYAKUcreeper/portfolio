@@ -15,11 +15,11 @@ interface LightBarFlyInProps {
 // fading out — evoking the NerveGear/SAO game boot "Link Start" sequence.
 const BAR_COUNT = 12
 const SLOT_ANGLE = 360 / BAR_COUNT
-const ENTRY_DURATION = 0.6
-const STAGGER_INTERVAL = 0.4
+const ENTRY_DURATION = 0.35
+const STAGGER_INTERVAL = 0.22
 const ROTATION_SPEED = SLOT_ANGLE / STAGGER_INTERVAL // deg/sec, keeps the ring evenly spaced as it fills
-const HOLD_DURATION = 0.6 // extra spin time once full, before the synchronized burst
-const BURST_DURATION = 1.3
+const HOLD_DURATION = 0.35 // extra spin time once full, before the synchronized burst
+const BURST_DURATION = 0.7
 const TRAVEL_DISTANCE = 260
 const RING_FRACTION = 0.4
 const RING_DISTANCE = TRAVEL_DISTANCE * RING_FRACTION
