@@ -5,19 +5,13 @@ interface LightBarFlyInProps {
   onArrive?: () => void
 }
 
-// A burst of solid-colored light bars that first spins in place at the
-// center (a brief "wind-up"), then releases outward toward the viewer,
-// evoking the NerveGear/SAO game boot "Link Start" sequence.
+// A burst of solid-colored light bars radiating out of the center
+// toward the viewer, evoking the NerveGear/SAO game boot "Link Start"
+// sequence, rather than a single weapon sliding in from off-screen.
 const BAR_COUNT = 12
-const SPIN_DEGREES = 120
-const SPIN_DURATION = 0.28
 const DURATION = 0.9
 const MAX_STAGGER = 0.15
 const TRAVEL_DISTANCE = 260
-
-const BAR_DURATION = SPIN_DURATION + DURATION
-const SPIN_FRACTION = SPIN_DURATION / BAR_DURATION
-const FADE_IN_FRACTION = SPIN_FRACTION * 0.3
 
 interface BarSpec {
   angleDeg: number
@@ -33,17 +27,12 @@ const BARS: BarSpec[] = Array.from({ length: BAR_COUNT }, (_, i) => ({
 
 export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
   useEffect(() => {
-    const timer = setTimeout(() => onArrive?.(), (BAR_DURATION + MAX_STAGGER) * 1000)
+    const timer = setTimeout(() => onArrive?.(), (DURATION + MAX_STAGGER) * 1000)
     return () => clearTimeout(timer)
   }, [onArrive])
 
   return (
-    <motion.div
-      className="relative h-1 w-1"
-      initial={{ rotate: 0 }}
-      animate={{ rotate: SPIN_DEGREES }}
-      transition={{ duration: SPIN_DURATION, ease: 'easeIn' }}
-    >
+    <div className="relative h-1 w-1">
       {BARS.map((bar) => {
         const angleRad = (bar.angleDeg * Math.PI) / 180
         const dx = Math.sin(angleRad) * TRAVEL_DISTANCE
@@ -53,16 +42,16 @@ export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
             key={bar.angleDeg}
             initial={{ x: 0, y: 0, opacity: 0, scaleY: 0.05 }}
             animate={{
-              x: [0, 0, 0, dx],
-              y: [0, 0, 0, dy],
-              opacity: [0, 1, 1, 0],
-              scaleY: [0.05, 0.4, 0.4, 2.5],
+              x: [0, dx * 0.4, dx],
+              y: [0, dy * 0.4, dy],
+              opacity: [0, 1, 0],
+              scaleY: [0.05, 1, 2.5],
             }}
             transition={{
-              duration: BAR_DURATION,
+              duration: DURATION,
               delay: bar.delay,
-              times: [0, FADE_IN_FRACTION, SPIN_FRACTION, 1],
-              ease: ['easeOut', 'linear', 'easeIn'],
+              times: [0, 0.55, 1],
+              ease: ['easeOut', 'easeIn'],
             }}
             className="absolute left-1/2 top-1/2 h-24 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
@@ -73,6 +62,6 @@ export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
           />
         )
       })}
-    </motion.div>
+    </div>
   )
 }
