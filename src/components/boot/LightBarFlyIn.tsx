@@ -11,7 +11,8 @@ interface LightBarFlyInProps {
 // boot "Link Start" sequence.
 const BAR_COUNT = 12
 const SPIN_DEGREES = 120
-const SPIN_DURATION = 0.3
+const APPEAR_DURATION = 0.35
+const SPIN_DURATION = 0.6
 const DURATION = 0.9
 const MAX_STAGGER = 0.15
 const TRAVEL_DISTANCE = 260
@@ -19,7 +20,7 @@ const RING_FRACTION = 0.4
 
 const BAR_DURATION = SPIN_DURATION + DURATION
 const SPIN_FRACTION = SPIN_DURATION / BAR_DURATION
-const RING_ARRIVE_FRACTION = SPIN_FRACTION * 0.3
+const RING_ARRIVE_FRACTION = APPEAR_DURATION / BAR_DURATION
 
 interface BarSpec {
   angleDeg: number
