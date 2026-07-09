@@ -5,14 +5,14 @@ interface LightBarFlyInProps {
   onArrive?: () => void
 }
 
-// A burst of solid-colored light bars that fan out into a ring (like
-// pinwheel blades around a hub), spin clockwise as a rigid ring, then
-// release outward toward the viewer — evoking the NerveGear/SAO game
-// boot "Link Start" sequence.
+// A burst of solid-colored light bars that converge inward into a ring
+// (like pinwheel blades around a hub) while fading in, spin clockwise
+// as a rigid ring, then release back outward toward the viewer while
+// fading out — evoking the NerveGear/SAO game boot "Link Start" sequence.
 const BAR_COUNT = 12
-const SPIN_DEGREES = 120
+const SPIN_DEGREES = 60
 const APPEAR_DURATION = 0.35
-const SPIN_DURATION = 0.6
+const SPIN_DURATION = 1.5
 const DURATION = 0.9
 const MAX_STAGGER = 0.15
 const TRAVEL_DISTANCE = 260
@@ -56,12 +56,12 @@ export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
         return (
           <motion.div
             key={bar.angleDeg}
-            initial={{ x: 0, y: 0, opacity: 0, scaleY: 0.05 }}
+            initial={{ x: dx, y: dy, opacity: 0, scaleY: 2.5 }}
             animate={{
-              x: [0, ringX, ringX, dx],
-              y: [0, ringY, ringY, dy],
+              x: [dx, ringX, ringX, dx],
+              y: [dy, ringY, ringY, dy],
               opacity: [0, 1, 1, 0],
-              scaleY: [0.05, 1, 1, 2.5],
+              scaleY: [2.5, 1, 1, 2.5],
             }}
             transition={{
               duration: BAR_DURATION,
