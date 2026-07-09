@@ -1,68 +1,72 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { motion } from 'motion/react'
 
 interface LightBarFlyInProps {
   onArrive?: () => void
 }
 
-// Each bar independently converges inward into a ring while fading in
-// (a straight radial line, no rotation happening), holds at that ring
-// distance while it rotates around the shared hub (no radial motion
-// happening), then bursts back outward while fading out (straight
-// again) — evoking the NerveGear/SAO game boot "Link Start" sequence.
-// Bars are staggered with a large random delay so each one runs its
-// own converge/rotate/burst cycle rather than moving in lockstep.
+// Bars enter one at a time (staggered) from the same point at the top
+// of the ring, fading in along a straight vertical line (no rotation
+// while entering). The instant a bar arrives, it joins the shared
+// clockwise rotation (no radial movement while rotating). The stagger
+// interval and rotation speed are tuned together so that by the time
+// the last bar arrives, all 12 have spread out into an evenly-filled
+// ring — at which point every bar bursts back outward in unison,
+// fading out — evoking the NerveGear/SAO game boot "Link Start" sequence.
 const BAR_COUNT = 12
-const SPIN_DEGREES = 60
-const APPEAR_DURATION = 0.6
-const SPIN_DURATION = 2.5
-const DURATION = 1.5
-const MAX_STAGGER = 1.5
+const SLOT_ANGLE = 360 / BAR_COUNT
+const ENTRY_DURATION = 0.6
+const STAGGER_INTERVAL = 0.4
+const ROTATION_SPEED = SLOT_ANGLE / STAGGER_INTERVAL // deg/sec, keeps the ring evenly spaced as it fills
+const HOLD_DURATION = 0.6 // extra spin time once full, before the synchronized burst
+const BURST_DURATION = 1.3
 const TRAVEL_DISTANCE = 260
 const RING_FRACTION = 0.4
 const RING_DISTANCE = TRAVEL_DISTANCE * RING_FRACTION
 
-const BAR_DURATION = APPEAR_DURATION + SPIN_DURATION + DURATION
-const RING_ARRIVE_FRACTION = APPEAR_DURATION / BAR_DURATION
-const SPIN_FRACTION = (APPEAR_DURATION + SPIN_DURATION) / BAR_DURATION
+const BURST_TIME = (BAR_COUNT - 1) * STAGGER_INTERVAL + ENTRY_DURATION + HOLD_DURATION
 
 interface BarSpec {
-  angleDeg: number
   color: string
   delay: number
+  totalDuration: number
+  times: [number, number, number, number]
+  finalAngle: number
 }
 
-function makeBars(): BarSpec[] {
-  return Array.from({ length: BAR_COUNT }, (_, i) => ({
-    angleDeg: (360 / BAR_COUNT) * i,
-    color: `hsl(${(360 / BAR_COUNT) * i}, 90%, 60%)`,
-    delay: Math.random() * MAX_STAGGER,
-  }))
-}
+const BARS: BarSpec[] = Array.from({ length: BAR_COUNT }, (_, i) => {
+  const delay = i * STAGGER_INTERVAL
+  const entryEnd = delay + ENTRY_DURATION
+  const rotationDuration = BURST_TIME - entryEnd
+  const totalDuration = ENTRY_DURATION + rotationDuration + BURST_DURATION
+  return {
+    color: `hsl(${SLOT_ANGLE * i}, 90%, 60%)`,
+    delay,
+    totalDuration,
+    times: [0, ENTRY_DURATION / totalDuration, (ENTRY_DURATION + rotationDuration) / totalDuration, 1],
+    finalAngle: ROTATION_SPEED * rotationDuration,
+  }
+})
 
 export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
-  const bars = useMemo(makeBars, [])
-
   useEffect(() => {
-    const timer = setTimeout(() => onArrive?.(), (BAR_DURATION + MAX_STAGGER) * 1000)
+    const timer = setTimeout(() => onArrive?.(), (BURST_TIME + BURST_DURATION) * 1000)
     return () => clearTimeout(timer)
   }, [onArrive])
 
   return (
     <div className="relative h-1 w-1">
-      {bars.map((bar, i) => (
+      {BARS.map((bar, i) => (
         <motion.div
           key={i}
           className="absolute left-1/2 top-1/2"
-          initial={{ rotate: bar.angleDeg }}
-          animate={{
-            rotate: [bar.angleDeg, bar.angleDeg, bar.angleDeg + SPIN_DEGREES, bar.angleDeg + SPIN_DEGREES],
-          }}
+          initial={{ rotate: 0 }}
+          animate={{ rotate: [0, 0, bar.finalAngle, bar.finalAngle] }}
           transition={{
-            duration: BAR_DURATION,
+            duration: bar.totalDuration,
             delay: bar.delay,
-            times: [0, RING_ARRIVE_FRACTION, SPIN_FRACTION, 1],
-            ease: ['linear', 'easeInOut', 'linear'],
+            times: bar.times,
+            ease: ['linear', 'linear', 'linear'],
           }}
         >
           <motion.div
@@ -73,9 +77,9 @@ export function LightBarFlyIn({ onArrive }: LightBarFlyInProps) {
               scaleY: [2.5, 1, 1, 2.5],
             }}
             transition={{
-              duration: BAR_DURATION,
+              duration: bar.totalDuration,
               delay: bar.delay,
-              times: [0, RING_ARRIVE_FRACTION, SPIN_FRACTION, 1],
+              times: bar.times,
               ease: ['easeOut', 'linear', 'easeIn'],
             }}
             className="absolute left-0 top-0 h-24 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
