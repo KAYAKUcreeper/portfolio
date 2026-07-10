@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import '@fontsource/noto-sans-jp/400.css';
+@import '@fontsource/noto-sans-jp/500.css';
+@import '@fontsource/noto-sans-jp/700.css';
+@import '@fontsource/orbitron/500.css';
+@import '@fontsource/orbitron/700.css';
+
+@theme {
+  --color-sao-cyan: #37f4ff;
+  --color-sao-cyan-dim: #1aa8c9;
+  --color-sao-navy: #050b14;
+  --color-sao-navy-mid: #0a1a2e;
+  --color-sao-white: #eaf9ff;
+
+  --font-display: 'Orbitron', 'Noto Sans JP', sans-serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-sao-navy);
+  color: var(--color-sao-white);
+  font-family: var(--font-body);
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
