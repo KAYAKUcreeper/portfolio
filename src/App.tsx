@@ -50,7 +50,7 @@ function App() {
             </h1>
             <div className="mt-4 h-px w-24 bg-sao-cyan/40" />
             <p className="mt-4 text-sm text-sao-white [text-shadow:0_2px_6px_rgba(5,11,20,0.9)]">
-              プレースホルダー：ここに一言紹介文を入れてください
+              student engineer
             </p>
           </motion.div>
 
